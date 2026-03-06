@@ -5,10 +5,10 @@ mod consensus;
 pub use consensus::Consensus;
 
 mod storage;
-pub use storage::Storage;
+pub use storage::{Storage, SimpleStorage};
 
 mod node;
-pub use node::FullNode;
+pub use node::{FullNode, SimpleFullNode};
 
 mod transaction;
 pub use transaction::{Transaction, TipTransaction};

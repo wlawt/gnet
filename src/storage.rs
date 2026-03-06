@@ -16,7 +16,9 @@ pub trait Storage<Blk> {
 ////////////////////////////////////////////////////////////
 
 /// A SimpleStorage is a `Storage` that stores blocks in a HashMap
-struct SimpleStorage<Blk> {
+#[derive(Clone)]
+pub struct SimpleStorage<Blk> {
+    /// The chain of blocks
     blocks: HashMap<Bytes, Blk>,
 }
 
@@ -33,5 +35,14 @@ where
 
     fn get_block(&self, hash: &Bytes) -> Result<Option<Blk>, Self::Error> {
         Ok(self.blocks.get(hash).cloned())
+    }
+}
+
+impl<Blk> SimpleStorage<Blk>
+where 
+    Blk: Block + Clone,
+{
+    pub fn new() -> Self {
+        SimpleStorage { blocks: HashMap::new() }
     }
 }
