@@ -1,5 +1,5 @@
 mod block;
-pub use block::{Block, BlockBody, BlockHeader, Bytes};
+pub use block::{Block, BlockBody, BlockHeader, SimpleBody, SimpleHeader, SimpleBlock};
 
 mod consensus;
 pub use consensus::Consensus;
@@ -8,4 +8,10 @@ mod storage;
 pub use storage::Storage;
 
 mod node;
-pub use node::Node;
+pub use node::FullNode;
+
+mod transaction;
+pub use transaction::{Transaction, TipTransaction};
+
+mod primitives;
+pub use primitives::{Bytes, Timestamp};

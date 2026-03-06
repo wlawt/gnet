@@ -3,4 +3,9 @@ name = "gnet"
 version = "0.1.0"
 edition = "2024"
 
+[[bin]]
+name = "gnet"
+path = "bin/gnet/main.rs"
+
 [dependencies]
+anyhow = "1.0.102"
