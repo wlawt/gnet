@@ -17,11 +17,14 @@ pub trait BlockHeader {
 }
 
 /// A generic block which has a `BlockBody` and a `BlockHeader`
-pub trait Block<B: BlockBody, H: BlockHeader> {
+pub trait Block {
+    type B: BlockBody + Clone;
+    type H: BlockHeader + Clone;
+
     /// The body of the block
-    fn body(&self) -> &B;
+    fn body(&self) -> &Self::B;
     /// The header of the block
-    fn header(&self) -> &H;
+    fn header(&self) -> &Self::H;
 }
 
 
@@ -81,9 +84,12 @@ pub struct SimpleBlock<B: BlockBody, H: BlockHeader> {
     header: H,
 }
 
-impl<B, H> Block<B, H> for SimpleBlock<B, H>
+impl<B, H> Block for SimpleBlock<B, H>
 where B: BlockBody + Clone, H: BlockHeader + Clone
 {
+    type B = B;
+    type H = H;
+
     fn body(&self) -> &B {
         &self.body
     }

@@ -1,9 +1,9 @@
-use crate::{Block, Bytes, BlockBody, BlockHeader};
+use crate::{Block, Bytes, BlockHeader};
 use anyhow::Error;
 use std::collections::HashMap;
 
 /// A generic storage interface
-pub trait Storage<B: BlockBody, H: BlockHeader, Blk: Block<B, H>> {
+pub trait Storage<Blk> {
     type Error;
 
     fn put_block(&mut self, block: &Blk) -> Result<(), Self::Error>;
@@ -20,11 +20,9 @@ struct SimpleStorage<Blk> {
     blocks: HashMap<Bytes, Blk>,
 }
 
-impl<B, H, Blk> Storage<B, H, Blk> for SimpleStorage<Blk>
-where 
-    B: BlockBody, 
-    H: BlockHeader,
-    Blk: Block<B, H> + Clone,
+impl<Blk> Storage<Blk> for SimpleStorage<Blk>
+where
+    Blk: Block + Clone,
 {
     type Error = Error;
 
