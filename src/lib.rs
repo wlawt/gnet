@@ -5,7 +5,7 @@ mod consensus;
 pub use consensus::Consensus;
 
 mod storage;
-pub use storage::{Storage, SimpleStorage};
+pub use storage::{Storage, BlockStorage, SimpleStorage};
 
 mod node;
 pub use node::{FullNode, SimpleFullNode};
