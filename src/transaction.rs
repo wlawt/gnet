@@ -12,13 +12,12 @@ pub trait Transaction {
     fn amount(&self) -> u64;
 }
 
-/// A TipTransaction is a `Transaction` that you can 
+/// A TipTransaction is a `Transaction` that you can
 /// add a priority fee to.
 pub trait TipTransaction: Transaction {
     /// The priority fee of the transaction
     fn priority_fee(&self) -> u64;
 }
-
 
 ////////////////////////////////////////////////////////////
 // Mock Implementations
@@ -55,7 +54,19 @@ impl TipTransaction for SimpleTransaction {
 }
 
 impl SimpleTransaction {
-    pub fn new(signature: Bytes, sender: Bytes, date: Timestamp, amount: u64, priority_fee: u64) -> Self {
-        SimpleTransaction { signature, sender, date, amount, priority_fee }
+    pub fn new(
+        signature: Bytes,
+        sender: Bytes,
+        date: Timestamp,
+        amount: u64,
+        priority_fee: u64,
+    ) -> Self {
+        SimpleTransaction {
+            signature,
+            sender,
+            date,
+            amount,
+            priority_fee,
+        }
     }
 }

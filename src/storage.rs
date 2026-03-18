@@ -17,7 +17,9 @@ pub struct SimpleStorage<K, V> {
 }
 
 impl<K, V> Storage<K, V> for SimpleStorage<K, V>
-where K: Eq + Hash, V: Clone,
+where
+    K: Eq + Hash,
+    V: Clone,
 {
     fn get(&self, key: &K) -> Option<V> {
         self.storage.get(key).cloned()
@@ -28,10 +30,14 @@ where K: Eq + Hash, V: Clone,
 }
 
 impl<K, V> SimpleStorage<K, V>
-where K: Eq + Hash, V: Clone,
+where
+    K: Eq + Hash,
+    V: Clone,
 {
     pub fn new() -> Self {
-        SimpleStorage { storage: HashMap::new() }
+        SimpleStorage {
+            storage: HashMap::new(),
+        }
     }
 }
 
@@ -48,9 +54,12 @@ pub struct BlockStorage<Blk: Block> {
 }
 
 impl<Blk> BlockStorage<Blk>
-where Blk: Block + Clone,
+where
+    Blk: Block + Clone,
 {
     pub fn new() -> Self {
-        BlockStorage { storage: SimpleStorage::new() }
+        BlockStorage {
+            storage: SimpleStorage::new(),
+        }
     }
 }

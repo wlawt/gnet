@@ -27,7 +27,6 @@ pub trait Block {
     fn header(&self) -> &Self::H;
 }
 
-
 ////////////////////////////////////////////////////////////
 // Mock Implementations
 ////////////////////////////////////////////////////////////
@@ -72,11 +71,15 @@ impl BlockHeader for SimpleHeader {
 
 impl SimpleHeader {
     pub fn new(parent_hash: Bytes, hash: Bytes, timestamp: Timestamp) -> Self {
-        SimpleHeader { parent_hash, hash, timestamp }
+        SimpleHeader {
+            parent_hash,
+            hash,
+            timestamp,
+        }
     }
 }
 
-/// A SimpleBlock is a `Block` that has a `SimpleBody` and a `SimpleHeader`. 
+/// A SimpleBlock is a `Block` that has a `SimpleBody` and a `SimpleHeader`.
 /// This block is used for the Gnet blockchain.
 #[derive(Clone)]
 pub struct SimpleBlock<B: BlockBody, H: BlockHeader> {
@@ -85,7 +88,9 @@ pub struct SimpleBlock<B: BlockBody, H: BlockHeader> {
 }
 
 impl<B, H> Block for SimpleBlock<B, H>
-where B: BlockBody + Clone, H: BlockHeader + Clone
+where
+    B: BlockBody + Clone,
+    H: BlockHeader + Clone,
 {
     type B = B;
     type H = H;

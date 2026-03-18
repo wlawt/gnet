@@ -5,4 +5,3 @@ pub trait Consensus {
 
     fn validate_block(&self, block: &impl Block) -> Result<(), Self::Error>;
 }
-

@@ -1,5 +1,5 @@
-use gnet::{FullNode, SimpleFullNode, SimpleBlock, SimpleBody, SimpleHeader, BlockStorage};
 use anyhow::Error;
+use gnet::{BlockStorage, FullNode, SimpleBlock, SimpleBody, SimpleFullNode, SimpleHeader};
 
 fn main() -> Result<(), Error> {
     let storage = BlockStorage::<SimpleBlock<SimpleBody, SimpleHeader>>::new();

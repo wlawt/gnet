@@ -1,11 +1,10 @@
-use crate::{Storage, Block, BlockStorage, SimpleStorage, Bytes};
+use crate::{Block, BlockStorage, Bytes, SimpleStorage, Storage};
 
 /// A full node is a node that can validate blocks and store them in a storage.
 pub trait FullNode<S> {
     /// Create a new full node
     fn new(storage: S) -> Self;
 }
-
 
 ////////////////////////////////////////////////////////////
 // Mock Implementations
@@ -19,7 +18,8 @@ pub struct SimpleFullNode<Blk: Block> {
 }
 
 impl<Blk> FullNode<BlockStorage<Blk>> for SimpleFullNode<Blk>
-where Blk: Block + Clone, 
+where
+    Blk: Block + Clone,
 {
     fn new(storage: BlockStorage<Blk>) -> Self {
         SimpleFullNode { blocks: storage }
