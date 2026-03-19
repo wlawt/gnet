@@ -1,9 +1,12 @@
-use crate::{Bytes, Timestamp};
+use crate::{Bytes, Timestamp, Transaction, bytes, time};
+use std::marker::PhantomData;
 
 /// A generic block body
 pub trait BlockBody {
+    type T: Transaction;
+
     /// The transactions of the block
-    fn transactions(&self) -> Vec<Bytes>;
+    fn transactions(&self) -> Vec<Self::T>;
 }
 
 /// A generic block header
@@ -33,18 +36,23 @@ pub trait Block {
 
 /// A SimpleBody is a `BlockBody` that has a vector of transactions
 #[derive(Clone)]
-pub struct SimpleBody {
-    transactions: Vec<Bytes>,
+pub struct SimpleBody<T> {
+    transactions: Vec<T>,
 }
 
-impl BlockBody for SimpleBody {
-    fn transactions(&self) -> Vec<Bytes> {
+impl<T> BlockBody for SimpleBody<T>
+where
+    T: Transaction + Clone,
+{
+    type T = T;
+
+    fn transactions(&self) -> Vec<T> {
         self.transactions.clone()
     }
 }
 
-impl SimpleBody {
-    pub fn new(transactions: Vec<Bytes>) -> Self {
+impl<T: Transaction + Clone> SimpleBody<T> {
+    pub fn new(transactions: Vec<T>) -> Self {
         SimpleBody { transactions }
     }
 }
@@ -70,11 +78,11 @@ impl BlockHeader for SimpleHeader {
 }
 
 impl SimpleHeader {
-    pub fn new(parent_hash: Bytes, hash: Bytes, timestamp: Timestamp) -> Self {
+    pub fn new(parent_hash: Bytes) -> Self {
         SimpleHeader {
             parent_hash,
-            hash,
-            timestamp,
+            hash: bytes(),
+            timestamp: time(),
         }
     }
 }
@@ -104,7 +112,11 @@ where
     }
 }
 
-impl<B: BlockBody, H: BlockHeader> SimpleBlock<B, H> {
+impl<B, H> SimpleBlock<B, H>
+where
+    B: BlockBody + Clone,
+    H: BlockHeader + Clone,
+{
     pub fn new(body: B, header: H) -> Self {
         SimpleBlock { body, header }
     }

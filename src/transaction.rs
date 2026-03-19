@@ -24,7 +24,7 @@ pub trait TipTransaction: Transaction {
 ////////////////////////////////////////////////////////////
 
 /// A SimpleTransaction is a `TipTransaction`
-struct SimpleTransaction {
+pub struct SimpleTransaction {
     signature: Bytes,
     sender: Bytes,
     date: Timestamp,

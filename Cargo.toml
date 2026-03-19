@@ -9,3 +9,4 @@ path = "bin/gnet/main.rs"
 
 [dependencies]
 anyhow = "1.0.102"
+getrandom = "0.4.2"

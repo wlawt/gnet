@@ -11,7 +11,7 @@ mod node;
 pub use node::{FullNode, SimpleFullNode};
 
 mod transaction;
-pub use transaction::{TipTransaction, Transaction};
+pub use transaction::{SimpleTransaction, TipTransaction, Transaction};
 
 mod primitives;
-pub use primitives::{Bytes, Timestamp};
+pub use primitives::{Bytes, Timestamp, bytes, time};
