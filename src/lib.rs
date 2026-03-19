@@ -2,7 +2,7 @@ mod block;
 pub use block::{Block, BlockBody, BlockHeader, SimpleBlock, SimpleBody, SimpleHeader};
 
 mod consensus;
-pub use consensus::Consensus;
+pub use consensus::{Consensus, SimpleConsensus};
 
 mod storage;
 pub use storage::{BlockStorage, SimpleStorage, Storage};

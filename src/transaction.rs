@@ -1,4 +1,4 @@
-use crate::{Bytes, Timestamp};
+use crate::{Bytes, Timestamp, bytes, time};
 
 /// A generic transaction format
 pub trait Transaction {
@@ -24,6 +24,7 @@ pub trait TipTransaction: Transaction {
 ////////////////////////////////////////////////////////////
 
 /// A SimpleTransaction is a `TipTransaction`
+#[derive(Clone)]
 pub struct SimpleTransaction {
     signature: Bytes,
     sender: Bytes,
@@ -67,6 +68,18 @@ impl SimpleTransaction {
             date,
             amount,
             priority_fee,
+        }
+    }
+}
+
+impl Default for SimpleTransaction {
+    fn default() -> Self {
+        SimpleTransaction {
+            signature: bytes(),
+            sender: bytes(),
+            date: time(),
+            amount: 0,
+            priority_fee: 0,
         }
     }
 }

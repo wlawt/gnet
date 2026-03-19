@@ -1,14 +1,17 @@
 use anyhow::Error;
 use gnet::{
-    BlockStorage, FullNode, SimpleBlock, SimpleBody, SimpleFullNode, SimpleHeader,
+    BlockStorage, FullNode, SimpleBlock, SimpleBody, SimpleConsensus, SimpleFullNode, SimpleHeader,
     SimpleTransaction,
 };
+use tracing::info;
 
 fn main() -> Result<(), Error> {
-    let storage = BlockStorage::<
-        SimpleBlock<SimpleTransaction, SimpleBody<SimpleTransaction>, SimpleHeader>,
-    >::new();
-    let _node = SimpleFullNode::new(storage);
+    tracing_subscriber::fmt::init();
+    info!("Starting Gnet node");
+    let consensus =
+        SimpleConsensus::<SimpleBlock<SimpleBody<SimpleTransaction>, SimpleHeader>>::new();
+    let mut node = SimpleFullNode::new(consensus);
+    node.run()?;
 
     Ok(())
 }

@@ -37,3 +37,9 @@ where
         Ok(block)
     }
 }
+
+impl<T: Transaction + Clone> SimpleConsensus<SimpleBlock<SimpleBody<T>, SimpleHeader>> {
+    pub fn new() -> Self {
+        SimpleConsensus { chain: vec![] }
+    }
+}
